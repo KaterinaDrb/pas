@@ -45,7 +45,8 @@ export const Modules: CollectionConfig = {
     },
     {
       type: 'relationship',
-      name: 'Нормативы',
+      name: 'standards',
+      label: 'Нормативы',
       relationTo: 'module-standards',
       hasMany: true,
     },

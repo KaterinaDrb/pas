@@ -193,7 +193,7 @@ export interface Module {
   description?: string | null;
   amount: number;
   price: number;
-  Нормативы?: (number | ModuleStandard)[] | null;
+  standards?: (number | ModuleStandard)[] | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -433,7 +433,7 @@ export interface ModulesSelect<T extends boolean = true> {
   description?: T;
   amount?: T;
   price?: T;
-  Нормативы?: T;
+  standards?: T;
   updatedAt?: T;
   createdAt?: T;
 }
