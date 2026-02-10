@@ -6,8 +6,11 @@ import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import sharp from 'sharp';
 
-import { Users } from './collections/Users';
 import { getServerSideURL } from './utils/getURL';
+import { Users } from './collections/Users';
+import { Customers } from './collections/Customers';
+import { BusinessProposals } from './collections/BusinessProposals/BusinessProposals';
+import { BusinessProposalHistory } from './collections/BusinessProposalHistory';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -24,7 +27,7 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users],
+  collections: [Users, Customers, BusinessProposals, BusinessProposalHistory],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

@@ -68,6 +68,9 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
+    customers: Customer;
+    'business-proposals': BusinessProposal;
+    'business-proposal-history': BusinessProposalHistory;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -76,6 +79,9 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
+    customers: CustomersSelect<false> | CustomersSelect<true>;
+    'business-proposals': BusinessProposalsSelect<false> | BusinessProposalsSelect<true>;
+    'business-proposal-history': BusinessProposalHistorySelect<false> | BusinessProposalHistorySelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -142,6 +148,50 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers".
+ */
+export interface Customer {
+  id: number;
+  name: string;
+  contact_person: string;
+  email: string;
+  phone?: string | null;
+  address?: string | null;
+  unp?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-proposals".
+ */
+export interface BusinessProposal {
+  id: number;
+  name?: string | null;
+  description?: string | null;
+  user?: (number | null) | User;
+  customer?: (number | null) | Customer;
+  status?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
+  price?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-proposal-history".
+ */
+export interface BusinessProposalHistory {
+  id: number;
+  user?: (number | null) | User;
+  businessProposal?: (number | null) | BusinessProposal;
+  comment?: string | null;
+  newStatus?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
+  oldStatus?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -163,10 +213,23 @@ export interface PayloadKv {
  */
 export interface PayloadLockedDocument {
   id: number;
-  document?: {
-    relationTo: 'users';
-    value: number | User;
-  } | null;
+  document?:
+    | ({
+        relationTo: 'users';
+        value: number | User;
+      } | null)
+    | ({
+        relationTo: 'customers';
+        value: number | Customer;
+      } | null)
+    | ({
+        relationTo: 'business-proposals';
+        value: number | BusinessProposal;
+      } | null)
+    | ({
+        relationTo: 'business-proposal-history';
+        value: number | BusinessProposalHistory;
+      } | null);
   globalSlug?: string | null;
   user: {
     relationTo: 'users';
@@ -233,6 +296,47 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "customers_select".
+ */
+export interface CustomersSelect<T extends boolean = true> {
+  name?: T;
+  contact_person?: T;
+  email?: T;
+  phone?: T;
+  address?: T;
+  unp?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-proposals_select".
+ */
+export interface BusinessProposalsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  user?: T;
+  customer?: T;
+  status?: T;
+  price?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "business-proposal-history_select".
+ */
+export interface BusinessProposalHistorySelect<T extends boolean = true> {
+  user?: T;
+  businessProposal?: T;
+  comment?: T;
+  newStatus?: T;
+  oldStatus?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

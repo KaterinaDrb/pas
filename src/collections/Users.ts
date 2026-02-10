@@ -1,4 +1,4 @@
-import { isAdmin } from '@/access/isAdmin';
+import { isRoles } from '@/access/isRoles';
 import type { CollectionConfig } from 'payload';
 
 export const Users: CollectionConfig = {
@@ -12,16 +12,16 @@ export const Users: CollectionConfig = {
     plural: 'Пользователи',
   },
   access: {
-    admin: isAdmin,
-    create: isAdmin,
-    delete: isAdmin,
+    admin: isRoles(['ADMIN']),
+    create: isRoles(['ADMIN']),
+    delete: isRoles(['ADMIN']),
     read: ({ req: { user } }) => {
       if (!user) return false;
       if (user.role === 'ADMIN') return true;
       // Обычные пользователи видят только себя
       return { id: { equals: user.id } };
     },
-    update: isAdmin,
+    update: isRoles(['ADMIN']),
   },
   fields: [
     {
