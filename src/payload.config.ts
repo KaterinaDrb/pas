@@ -11,6 +11,9 @@ import { Users } from './collections/Users';
 import { Customers } from './collections/Customers';
 import { BusinessProposals } from './collections/BusinessProposals/BusinessProposals';
 import { BusinessProposalHistory } from './collections/BusinessProposalHistory';
+import { Modules } from './collections/Modules';
+import { ModuleGroup } from './collections/ModuleGroup';
+import { ModuleStandards } from './collections/ModuleStandards';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -27,7 +30,15 @@ export default buildConfig({
       },
     },
   },
-  collections: [Users, Customers, BusinessProposals, BusinessProposalHistory],
+  collections: [
+    Users,
+    Customers,
+    BusinessProposals,
+    BusinessProposalHistory,
+    ModuleStandards,
+    Modules,
+    ModuleGroup,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

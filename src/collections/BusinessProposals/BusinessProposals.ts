@@ -83,6 +83,13 @@ export const BusinessProposals: CollectionConfig = {
       name: 'price',
       label: 'Стоимость',
     },
+    {
+      type: 'relationship',
+      name: 'modules',
+      label: 'Модули',
+      relationTo: 'modules',
+      hasMany: true,
+    },
   ],
   endpoints: [
     {

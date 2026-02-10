@@ -71,6 +71,9 @@ export interface Config {
     customers: Customer;
     'business-proposals': BusinessProposal;
     'business-proposal-history': BusinessProposalHistory;
+    'module-standards': ModuleStandard;
+    modules: Module;
+    'module-group': ModuleGroup;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -82,6 +85,9 @@ export interface Config {
     customers: CustomersSelect<false> | CustomersSelect<true>;
     'business-proposals': BusinessProposalsSelect<false> | BusinessProposalsSelect<true>;
     'business-proposal-history': BusinessProposalHistorySelect<false> | BusinessProposalHistorySelect<true>;
+    'module-standards': ModuleStandardsSelect<false> | ModuleStandardsSelect<true>;
+    modules: ModulesSelect<false> | ModulesSelect<true>;
+    'module-group': ModuleGroupSelect<false> | ModuleGroupSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -173,6 +179,39 @@ export interface BusinessProposal {
   customer?: (number | null) | Customer;
   status?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
   price?: number | null;
+  modules?: (number | Module)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "modules".
+ */
+export interface Module {
+  id: number;
+  name: string;
+  description?: string | null;
+  amount: number;
+  price: number;
+  Нормативы?: (number | ModuleStandard)[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "module-standards".
+ */
+export interface ModuleStandard {
+  id: number;
+  name: string;
+  description?: string | null;
+  type?: string | null;
+  value?: string | null;
+  unit?: string | null;
+  technology?: string | null;
+  complexity?: string | null;
+  start_date?: string | null;
+  end_date?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -187,6 +226,23 @@ export interface BusinessProposalHistory {
   comment?: string | null;
   newStatus?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
   oldStatus?: ('DRAFT' | 'READY' | 'TECH_APPROVED' | 'APPROVED' | 'DECLINED') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "module-group".
+ */
+export interface ModuleGroup {
+  id: number;
+  name: string;
+  subGroup?:
+    | {
+        name: string;
+        module?: (number | Module)[] | null;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -229,6 +285,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'business-proposal-history';
         value: number | BusinessProposalHistory;
+      } | null)
+    | ({
+        relationTo: 'module-standards';
+        value: number | ModuleStandard;
+      } | null)
+    | ({
+        relationTo: 'modules';
+        value: number | Module;
+      } | null)
+    | ({
+        relationTo: 'module-group';
+        value: number | ModuleGroup;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -322,6 +390,7 @@ export interface BusinessProposalsSelect<T extends boolean = true> {
   customer?: T;
   status?: T;
   price?: T;
+  modules?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -335,6 +404,52 @@ export interface BusinessProposalHistorySelect<T extends boolean = true> {
   comment?: T;
   newStatus?: T;
   oldStatus?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "module-standards_select".
+ */
+export interface ModuleStandardsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  type?: T;
+  value?: T;
+  unit?: T;
+  technology?: T;
+  complexity?: T;
+  start_date?: T;
+  end_date?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "modules_select".
+ */
+export interface ModulesSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
+  amount?: T;
+  price?: T;
+  Нормативы?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "module-group_select".
+ */
+export interface ModuleGroupSelect<T extends boolean = true> {
+  name?: T;
+  subGroup?:
+    | T
+    | {
+        name?: T;
+        module?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
