@@ -1,0 +1,5632 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "PAS API",
+    "version": "3"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/users/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/LoginRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/LoginResponse"
+          }
+        }
+      }
+    },
+    "/api/users/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/LogoutResponse"
+          }
+        }
+      }
+    },
+    "/api/users/me": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/MeResponse"
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "operationId": "listПользователи",
+        "summary": "Retrieve a list of Пользователи",
+        "tags": [
+          "Пользователи"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "phone",
+                "-phone",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt",
+                "email",
+                "-email",
+                "resetPasswordToken",
+                "-resetPasswordToken",
+                "resetPasswordExpiration",
+                "-resetPasswordExpiration",
+                "salt",
+                "-salt",
+                "hash",
+                "-hash",
+                "loginAttempts",
+                "-loginAttempts",
+                "lockUntil",
+                "-lockUntil"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ПользовательQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ПользовательQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ПользовательQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ПользовательListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createПользователь",
+        "summary": "Create a new Пользователь",
+        "tags": [
+          "Пользователи"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ПользовательRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewПользовательResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/users/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Пользователь",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findПользовательById",
+        "summary": "Find a Пользователь by ID",
+        "tags": [
+          "Пользователи"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ПользовательResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ПользовательNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateПользователь",
+        "summary": "Update a Пользователь",
+        "tags": [
+          "Пользователи"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ПользовательPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ПользовательResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ПользовательNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteПользователь",
+        "summary": "Delete a Пользователь",
+        "tags": [
+          "Пользователи"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ПользовательResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ПользовательNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/customers": {
+      "get": {
+        "operationId": "listКлиенты",
+        "summary": "Retrieve a list of Клиенты",
+        "tags": [
+          "Клиенты"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "contact_person",
+                "-contact_person",
+                "email",
+                "-email",
+                "phone",
+                "-phone",
+                "address",
+                "-address",
+                "unp",
+                "-unp",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/КлиентQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/КлиентQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/КлиентQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КлиентListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createКлиент",
+        "summary": "Create a new Клиент",
+        "tags": [
+          "Клиенты"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/КлиентRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewКлиентResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/customers/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Клиент",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findКлиентById",
+        "summary": "Find a Клиент by ID",
+        "tags": [
+          "Клиенты"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КлиентResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/КлиентNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateКлиент",
+        "summary": "Update a Клиент",
+        "tags": [
+          "Клиенты"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/КлиентPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КлиентResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/КлиентNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteКлиент",
+        "summary": "Delete a Клиент",
+        "tags": [
+          "Клиенты"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КлиентResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/КлиентNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/business-proposals": {
+      "get": {
+        "operationId": "listКоммерческиеПредложения",
+        "summary": "Retrieve a list of Коммерческие предложения",
+        "tags": [
+          "Коммерческие предложения"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "description",
+                "-description",
+                "price",
+                "-price",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КоммерческоеПредложениеListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createКоммерческоеПредложение",
+        "summary": "Create a new Коммерческое предложение",
+        "tags": [
+          "Коммерческие предложения"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/КоммерческоеПредложениеRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewКоммерческоеПредложениеResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/business-proposals/{id}/approve": {
+      "patch": {
+        "summary": "Approve a Коммерческое предложение",
+        "tags": [
+          "Коммерческие предложения"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/КоммерческоеПредложениеCommentPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КоммерческоеПредложениеResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/КоммерческоеПредложениеNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/business-proposals/{id}/decline": {
+      "patch": {
+        "summary": "Decline a Коммерческое предложение",
+        "tags": [
+          "Коммерческие предложения"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/КоммерческоеПредложениеCommentPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/КоммерческоеПредложениеResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/КоммерческоеПредложениеNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/business-proposal-history": {
+      "get": {
+        "operationId": "listBusinessProposalHistories",
+        "summary": "Retrieve a list of Business Proposal Histories",
+        "tags": [
+          "Business Proposal Histories"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BusinessProposalHistoryListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createBusinessProposalHistory",
+        "summary": "Create a new Business Proposal History",
+        "tags": [
+          "Business Proposal Histories"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/BusinessProposalHistoryRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewBusinessProposalHistoryResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/business-proposal-history/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Business Proposal History",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findBusinessProposalHistoryById",
+        "summary": "Find a Business Proposal History by ID",
+        "tags": [
+          "Business Proposal Histories"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BusinessProposalHistoryResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/BusinessProposalHistoryNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateBusinessProposalHistory",
+        "summary": "Update a Business Proposal History",
+        "tags": [
+          "Business Proposal Histories"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/BusinessProposalHistoryPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BusinessProposalHistoryResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/BusinessProposalHistoryNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteBusinessProposalHistory",
+        "summary": "Delete a Business Proposal History",
+        "tags": [
+          "Business Proposal Histories"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/BusinessProposalHistoryResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/BusinessProposalHistoryNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/module-standards": {
+      "get": {
+        "operationId": "listНормативы",
+        "summary": "Retrieve a list of Нормативы",
+        "tags": [
+          "Нормативы"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "description",
+                "-description",
+                "type",
+                "-type",
+                "value",
+                "-value",
+                "unit",
+                "-unit",
+                "technology",
+                "-technology",
+                "complexity",
+                "-complexity",
+                "start_date",
+                "-start_date",
+                "end_date",
+                "-end_date",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/НормативQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/НормативQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/НормативQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/НормативListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createНорматив",
+        "summary": "Create a new Норматив",
+        "tags": [
+          "Нормативы"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/НормативRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewНормативResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/module-standards/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Норматив",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findНормативById",
+        "summary": "Find a Норматив by ID",
+        "tags": [
+          "Нормативы"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/НормативResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/НормативNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateНорматив",
+        "summary": "Update a Норматив",
+        "tags": [
+          "Нормативы"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/НормативPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/НормативResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/НормативNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteНорматив",
+        "summary": "Delete a Норматив",
+        "tags": [
+          "Нормативы"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/НормативResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/НормативNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/modules": {
+      "get": {
+        "operationId": "listМодули",
+        "summary": "Retrieve a list of Модули",
+        "tags": [
+          "Модули"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "description",
+                "-description",
+                "amount",
+                "-amount",
+                "price",
+                "-price",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/МодульQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/МодульQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/МодульQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/МодульListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createМодуль",
+        "summary": "Create a new Модуль",
+        "tags": [
+          "Модули"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/МодульRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewМодульResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/modules/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Модуль",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findМодульById",
+        "summary": "Find a Модуль by ID",
+        "tags": [
+          "Модули"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/МодульResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/МодульNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateМодуль",
+        "summary": "Update a Модуль",
+        "tags": [
+          "Модули"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/МодульPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/МодульResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/МодульNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteМодуль",
+        "summary": "Delete a Модуль",
+        "tags": [
+          "Модули"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/МодульResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/МодульNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/module-group": {
+      "get": {
+        "operationId": "listГруппаМодулей",
+        "summary": "Retrieve a list of Группа модулей",
+        "tags": [
+          "Группа модулей"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "fallback-locale",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "name",
+                "-name",
+                "updatedAt",
+                "-updatedAt",
+                "createdAt",
+                "-createdAt"
+              ]
+            }
+          },
+          {
+            "in": "query",
+            "name": "where",
+            "style": "deepObject",
+            "schema": {
+              "allOf": [
+                {
+                  "type": "object"
+                },
+                {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ГруппаМодулейQueryOperations"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsAnd"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsOr"
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ГруппаМодулейListResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createГруппаМодулей",
+        "summary": "Create a new Группа модулей",
+        "tags": [
+          "Группа модулей"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "depth",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "in": "query",
+            "name": "locale",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ГруппаМодулейRequestBody"
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/NewГруппаМодулейResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    },
+    "/api/module-group/{id}": {
+      "parameters": [
+        {
+          "in": "query",
+          "name": "depth",
+          "schema": {
+            "type": "number"
+          }
+        },
+        {
+          "in": "query",
+          "name": "locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "query",
+          "name": "fallback-locale",
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "in": "path",
+          "name": "id",
+          "description": "ID of the Группа модулей",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ],
+      "get": {
+        "operationId": "findГруппаМодулейById",
+        "summary": "Find a Группа модулей by ID",
+        "tags": [
+          "Группа модулей"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ГруппаМодулейResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ГруппаМодулейNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateГруппаМодулей",
+        "summary": "Update a Группа модулей",
+        "tags": [
+          "Группа модулей"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/ГруппаМодулейPatchRequestBody"
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ГруппаМодулейResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ГруппаМодулейNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteГруппаМодулей",
+        "summary": "Delete a Группа модулей",
+        "tags": [
+          "Группа модулей"
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/ГруппаМодулейResponse"
+          },
+          "404": {
+            "$ref": "#/components/responses/ГруппаМодулейNotFoundResponse"
+          }
+        },
+        "security": [
+          {
+            "ApiKey": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "oauth2",
+        "flows": {
+          "password": {
+            "tokenUrl": "/api//openapi-auth",
+            "scopes": {}
+          }
+        }
+      }
+    },
+    "schemas": {
+      "supportedTimezones": {
+        "type": "string",
+        "example": "Europe/Prague"
+      },
+      "Пользователь": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Пользователь",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "ADMIN",
+              "PROJECT_MANAGER",
+              "TECH_LEAD",
+              "PROJECT_MANAGER_DELEGATE"
+            ],
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "resetPasswordToken": {
+            "type": "string",
+            "nullable": true
+          },
+          "resetPasswordExpiration": {
+            "type": "string",
+            "nullable": true
+          },
+          "salt": {
+            "type": "string",
+            "nullable": true
+          },
+          "hash": {
+            "type": "string",
+            "nullable": true
+          },
+          "loginAttempts": {
+            "type": "number",
+            "nullable": true
+          },
+          "lockUntil": {
+            "type": "string",
+            "nullable": true
+          },
+          "sessions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "expiresAt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "expiresAt"
+              ]
+            },
+            "nullable": true
+          },
+          "password": {
+            "type": "string",
+            "nullable": true
+          },
+          "collection": {
+            "type": "string",
+            "enum": [
+              "users"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updatedAt",
+          "createdAt",
+          "email",
+          "collection"
+        ]
+      },
+      "Клиент": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Клиент",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "contact_person": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "unp": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "contact_person",
+          "email",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "КоммерческоеПредложение": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Коммерческое предложение",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "user": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/Пользователь"
+              }
+            ]
+          },
+          "customer": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/Клиент"
+              }
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "READY",
+              "TECH_APPROVED",
+              "APPROVED",
+              "DECLINED"
+            ],
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "nullable": true
+          },
+          "modules": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/Модуль"
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "BusinessProposalHistory": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Business Proposal History",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/Пользователь"
+              }
+            ]
+          },
+          "businessProposal": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "$ref": "#/components/schemas/КоммерческоеПредложение"
+              }
+            ]
+          },
+          "comment": {
+            "type": "string",
+            "nullable": true
+          },
+          "newStatus": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "READY",
+              "TECH_APPROVED",
+              "APPROVED",
+              "DECLINED"
+            ],
+            "nullable": true
+          },
+          "oldStatus": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "READY",
+              "TECH_APPROVED",
+              "APPROVED",
+              "DECLINED"
+            ],
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "Норматив": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Норматив",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "unit": {
+            "type": "string",
+            "nullable": true
+          },
+          "technology": {
+            "type": "string",
+            "nullable": true
+          },
+          "complexity": {
+            "type": "string",
+            "nullable": true
+          },
+          "start_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "end_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "Модуль": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Модуль",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "amount": {
+            "type": "number"
+          },
+          "price": {
+            "type": "number"
+          },
+          "standards": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "$ref": "#/components/schemas/Норматив"
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "amount",
+          "price",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "ГруппаМодулей": {
+        "type": "object",
+        "additionalProperties": false,
+        "title": "Группа модулей",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "subGroup": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "module": {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "$ref": "#/components/schemas/Модуль"
+                      }
+                    ]
+                  },
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name"
+              ]
+            },
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "updatedAt",
+          "createdAt"
+        ]
+      },
+      "ПользовательQueryOperations": {
+        "title": "Пользователь query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "phone": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "role": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "enum": [
+                  "ADMIN",
+                  "PROJECT_MANAGER",
+                  "TECH_LEAD",
+                  "PROJECT_MANAGER_DELEGATE"
+                ]
+              },
+              "not_equals": {
+                "type": "string",
+                "enum": [
+                  "ADMIN",
+                  "PROJECT_MANAGER",
+                  "TECH_LEAD",
+                  "PROJECT_MANAGER_DELEGATE"
+                ]
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "email"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "email"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string",
+                "format": "email"
+              }
+            }
+          },
+          "resetPasswordToken": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "resetPasswordExpiration": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "salt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "hash": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "loginAttempts": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "number"
+              },
+              "not_equals": {
+                "type": "number"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "number"
+              },
+              "greater_than_equal": {
+                "type": "number"
+              },
+              "less_than": {
+                "type": "number"
+              },
+              "less_than_equal": {
+                "type": "number"
+              }
+            }
+          },
+          "lockUntil": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "ПользовательQueryOperationsAnd": {
+        "title": "Пользователь query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "ПользовательQueryOperationsOr": {
+        "title": "Пользователь query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/ПользовательQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "КлиентQueryOperations": {
+        "title": "Клиент query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "contact_person": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "email": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "phone": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "address": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "unp": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "КлиентQueryOperationsAnd": {
+        "title": "Клиент query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "КлиентQueryOperationsOr": {
+        "title": "Клиент query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/КлиентQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "КоммерческоеПредложениеQueryOperations": {
+        "title": "Коммерческое предложение query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "status": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "not_equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              }
+            }
+          },
+          "price": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "number"
+              },
+              "not_equals": {
+                "type": "number"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "number"
+              },
+              "greater_than_equal": {
+                "type": "number"
+              },
+              "less_than": {
+                "type": "number"
+              },
+              "less_than_equal": {
+                "type": "number"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеQueryOperationsAnd": {
+        "title": "Коммерческое предложение query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "КоммерческоеПредложениеQueryOperationsOr": {
+        "title": "Коммерческое предложение query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/КоммерческоеПредложениеQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "BusinessProposalHistoryQueryOperations": {
+        "title": "Business Proposal History query operations",
+        "type": "object",
+        "properties": {
+          "newStatus": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "not_equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              }
+            }
+          },
+          "oldStatus": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "not_equals": {
+                "type": "string",
+                "enum": [
+                  "DRAFT",
+                  "READY",
+                  "TECH_APPROVED",
+                  "APPROVED",
+                  "DECLINED"
+                ]
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "BusinessProposalHistoryQueryOperationsAnd": {
+        "title": "Business Proposal History query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "BusinessProposalHistoryQueryOperationsOr": {
+        "title": "Business Proposal History query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/BusinessProposalHistoryQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "НормативQueryOperations": {
+        "title": "Норматив query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "type": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "value": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "unit": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "technology": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "complexity": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "start_date": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "end_date": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "НормативQueryOperationsAnd": {
+        "title": "Норматив query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "НормативQueryOperationsOr": {
+        "title": "Норматив query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/НормативQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "МодульQueryOperations": {
+        "title": "Модуль query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "amount": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "number"
+              },
+              "not_equals": {
+                "type": "number"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "number"
+              },
+              "greater_than_equal": {
+                "type": "number"
+              },
+              "less_than": {
+                "type": "number"
+              },
+              "less_than_equal": {
+                "type": "number"
+              }
+            }
+          },
+          "price": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "number"
+              },
+              "not_equals": {
+                "type": "number"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "number"
+              },
+              "greater_than_equal": {
+                "type": "number"
+              },
+              "less_than": {
+                "type": "number"
+              },
+              "less_than_equal": {
+                "type": "number"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "МодульQueryOperationsAnd": {
+        "title": "Модуль query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "МодульQueryOperationsOr": {
+        "title": "Модуль query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/МодульQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      },
+      "ГруппаМодулейQueryOperations": {
+        "title": "Группа модулей query operations",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string"
+              },
+              "not_equals": {
+                "type": "string"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "like": {
+                "type": "string"
+              },
+              "contains": {
+                "type": "string"
+              }
+            }
+          },
+          "updatedAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "createdAt": {
+            "type": "object",
+            "properties": {
+              "equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "not_equals": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "in": {
+                "type": "string"
+              },
+              "not_in": {
+                "type": "string"
+              },
+              "greater_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "greater_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "less_than_equal": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "ГруппаМодулейQueryOperationsAnd": {
+        "title": "Группа модулей query conjunction",
+        "type": "object",
+        "properties": {
+          "and": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "and"
+        ]
+      },
+      "ГруппаМодулейQueryOperationsOr": {
+        "title": "Группа модулей query disjunction",
+        "type": "object",
+        "properties": {
+          "or": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperations"
+                },
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsAnd"
+                },
+                {
+                  "$ref": "#/components/schemas/ГруппаМодулейQueryOperationsOr"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "or"
+        ]
+      }
+    },
+    "requestBodies": {
+      "ПользовательRequestBody": {
+        "description": "Пользователь",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "User",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "ADMIN",
+                    "PROJECT_MANAGER",
+                    "TECH_LEAD",
+                    "PROJECT_MANAGER_DELEGATE"
+                  ],
+                  "nullable": true
+                },
+                "email": {
+                  "type": "string"
+                },
+                "resetPasswordToken": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "resetPasswordExpiration": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "salt": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "hash": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "loginAttempts": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "lockUntil": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "sessions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "expiresAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "expiresAt"
+                    ]
+                  },
+                  "nullable": true
+                },
+                "password": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "collection": {
+                  "type": "string",
+                  "enum": [
+                    "users"
+                  ]
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "collection"
+              ]
+            }
+          }
+        }
+      },
+      "ПользовательPatchRequestBody": {
+        "description": "Пользователь",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "User",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "role": {
+                  "type": "string",
+                  "enum": [
+                    "ADMIN",
+                    "PROJECT_MANAGER",
+                    "TECH_LEAD",
+                    "PROJECT_MANAGER_DELEGATE"
+                  ],
+                  "nullable": true
+                },
+                "email": {
+                  "type": "string"
+                },
+                "resetPasswordToken": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "resetPasswordExpiration": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "salt": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "hash": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "loginAttempts": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "lockUntil": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "sessions": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "expiresAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "expiresAt"
+                    ]
+                  },
+                  "nullable": true
+                },
+                "password": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "collection": {
+                  "type": "string",
+                  "enum": [
+                    "users"
+                  ]
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "КлиентRequestBody": {
+        "description": "Клиент",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "Customer",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "contact_person": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "address": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "unp": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name",
+                "contact_person",
+                "email"
+              ]
+            }
+          }
+        }
+      },
+      "КлиентPatchRequestBody": {
+        "description": "Клиент",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "Customer",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "contact_person": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "address": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "unp": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеRequestBody": {
+        "description": "Коммерческое предложение",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "BusinessProposal",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "user": {
+                  "type": "string",
+                  "description": "ID of the users"
+                },
+                "customer": {
+                  "type": "string",
+                  "description": "ID of the customers"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                },
+                "price": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "modules": {
+                  "type": "string",
+                  "description": "ID of the modules"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеPatchRequestBody": {
+        "description": "Коммерческое предложение",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "BusinessProposal",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "user": {
+                  "type": "string",
+                  "description": "ID of the users"
+                },
+                "customer": {
+                  "type": "string",
+                  "description": "ID of the customers"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                },
+                "price": {
+                  "type": "number",
+                  "nullable": true
+                },
+                "modules": {
+                  "type": "string",
+                  "description": "ID of the modules"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеCommentPatchRequestBody": {
+        "description": "Коммерческое предложение",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "BusinessProposal",
+              "properties": {
+                "comment": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "comment"
+              ]
+            }
+          }
+        }
+      },
+      "BusinessProposalHistoryRequestBody": {
+        "description": "Business Proposal History",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "BusinessProposalHistory",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "description": "ID of the users"
+                },
+                "businessProposal": {
+                  "type": "string",
+                  "description": "ID of the business-proposals"
+                },
+                "comment": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "newStatus": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                },
+                "oldStatus": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "BusinessProposalHistoryPatchRequestBody": {
+        "description": "Business Proposal History",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "BusinessProposalHistory",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "description": "ID of the users"
+                },
+                "businessProposal": {
+                  "type": "string",
+                  "description": "ID of the business-proposals"
+                },
+                "comment": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "newStatus": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                },
+                "oldStatus": {
+                  "type": "string",
+                  "enum": [
+                    "DRAFT",
+                    "READY",
+                    "TECH_APPROVED",
+                    "APPROVED",
+                    "DECLINED"
+                  ],
+                  "nullable": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "НормативRequestBody": {
+        "description": "Норматив",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "ModuleStandard",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "type": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "value": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "unit": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "technology": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "complexity": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "start_date": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "end_date": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        }
+      },
+      "НормативPatchRequestBody": {
+        "description": "Норматив",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "ModuleStandard",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "type": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "value": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "unit": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "technology": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "complexity": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "start_date": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "end_date": {
+                  "type": "string",
+                  "nullable": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "МодульRequestBody": {
+        "description": "Модуль",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "Module",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "standards": {
+                  "type": "string",
+                  "description": "ID of the module-standards"
+                }
+              },
+              "required": [
+                "name",
+                "amount",
+                "price"
+              ]
+            }
+          }
+        }
+      },
+      "МодульPatchRequestBody": {
+        "description": "Модуль",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "Module",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string",
+                  "nullable": true
+                },
+                "amount": {
+                  "type": "number"
+                },
+                "price": {
+                  "type": "number"
+                },
+                "standards": {
+                  "type": "string",
+                  "description": "ID of the module-standards"
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "ГруппаМодулейRequestBody": {
+        "description": "Группа модулей",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "ModuleGroup",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "subGroup": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "module": {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "$ref": "#/components/schemas/Модуль"
+                            }
+                          ]
+                        },
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  },
+                  "nullable": true
+                }
+              },
+              "required": [
+                "name"
+              ]
+            }
+          }
+        }
+      },
+      "ГруппаМодулейPatchRequestBody": {
+        "description": "Группа модулей",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "ModuleGroup",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "subGroup": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "module": {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "$ref": "#/components/schemas/Модуль"
+                            }
+                          ]
+                        },
+                        "nullable": true
+                      },
+                      "id": {
+                        "type": "string",
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  },
+                  "nullable": true
+                }
+              },
+              "required": []
+            }
+          }
+        }
+      },
+      "LoginRequestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "title": "User",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "password"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "ПользовательResponse": {
+        "description": "Пользователь object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Пользователь"
+            }
+          }
+        }
+      },
+      "NewПользовательResponse": {
+        "description": "Пользователь object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Пользователь"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "ПользовательNotFoundResponse": {
+        "description": "Пользователь not found",
+        "content": {}
+      },
+      "ПользовательListResponse": {
+        "description": "List of Пользователи",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Пользователь"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "КлиентResponse": {
+        "description": "Клиент object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Клиент"
+            }
+          }
+        }
+      },
+      "NewКлиентResponse": {
+        "description": "Клиент object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Клиент"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "КлиентNotFoundResponse": {
+        "description": "Клиент not found",
+        "content": {}
+      },
+      "КлиентListResponse": {
+        "description": "List of Клиенты",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Клиент"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеResponse": {
+        "description": "Коммерческое предложение object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/КоммерческоеПредложение"
+            }
+          }
+        }
+      },
+      "NewКоммерческоеПредложениеResponse": {
+        "description": "Коммерческое предложение object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/КоммерческоеПредложение"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "КоммерческоеПредложениеNotFoundResponse": {
+        "description": "Коммерческое предложение not found",
+        "content": {}
+      },
+      "КоммерческоеПредложениеListResponse": {
+        "description": "List of Коммерческие предложения",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/КоммерческоеПредложение"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "BusinessProposalHistoryResponse": {
+        "description": "Business Proposal History object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/BusinessProposalHistory"
+            }
+          }
+        }
+      },
+      "NewBusinessProposalHistoryResponse": {
+        "description": "Business Proposal History object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/BusinessProposalHistory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "BusinessProposalHistoryNotFoundResponse": {
+        "description": "Business Proposal History not found",
+        "content": {}
+      },
+      "BusinessProposalHistoryListResponse": {
+        "description": "List of Business Proposal Histories",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BusinessProposalHistory"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "НормативResponse": {
+        "description": "Норматив object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Норматив"
+            }
+          }
+        }
+      },
+      "NewНормативResponse": {
+        "description": "Норматив object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Норматив"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "НормативNotFoundResponse": {
+        "description": "Норматив not found",
+        "content": {}
+      },
+      "НормативListResponse": {
+        "description": "List of Нормативы",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Норматив"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "МодульResponse": {
+        "description": "Модуль object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Модуль"
+            }
+          }
+        }
+      },
+      "NewМодульResponse": {
+        "description": "Модуль object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Модуль"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "МодульNotFoundResponse": {
+        "description": "Модуль not found",
+        "content": {}
+      },
+      "МодульListResponse": {
+        "description": "List of Модули",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Модуль"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "ГруппаМодулейResponse": {
+        "description": "Группа модулей object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ГруппаМодулей"
+            }
+          }
+        }
+      },
+      "NewГруппаМодулейResponse": {
+        "description": "Группа модулей object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "doc": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/ГруппаМодулей"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "createdAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "updatedAt": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "createdAt",
+                        "updatedAt"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "message",
+                "doc"
+              ]
+            }
+          }
+        }
+      },
+      "ГруппаМодулейNotFoundResponse": {
+        "description": "Группа модулей not found",
+        "content": {}
+      },
+      "ГруппаМодулейListResponse": {
+        "description": "List of Группа модулей",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "docs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ГруппаМодулей"
+                  }
+                },
+                "totalDocs": {
+                  "type": "integer"
+                },
+                "limit": {
+                  "type": "integer"
+                },
+                "totalPages": {
+                  "type": "integer"
+                },
+                "page": {
+                  "type": "integer"
+                },
+                "pagingCounter": {
+                  "type": "integer"
+                },
+                "hasPrevPage": {
+                  "type": "boolean"
+                },
+                "hasNextPage": {
+                  "type": "boolean"
+                },
+                "prevPage": {
+                  "type": "integer",
+                  "nullable": true
+                },
+                "nextPage": {
+                  "type": "integer",
+                  "nullable": true
+                }
+              },
+              "required": [
+                "docs",
+                "totalDocs",
+                "limit",
+                "totalPages",
+                "page",
+                "pagingCounter",
+                "hasPrevPage",
+                "hasNextPage",
+                "prevPage",
+                "nextPage"
+              ]
+            }
+          }
+        }
+      },
+      "LoginResponse": {
+        "description": "Login object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                },
+                "user": {
+                  "$ref": "#/components/schemas/Пользователь"
+                }
+              }
+            }
+          }
+        }
+      },
+      "LogoutResponse": {
+        "description": "Logout object",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "MeResponse": {
+        "description": "Current user",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "user": {
+                  "$ref": "#/components/schemas/Пользователь"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
