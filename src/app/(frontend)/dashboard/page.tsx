@@ -6,8 +6,13 @@ import Footer from '../../../components/Footer';
 import { draftProps } from '../../../types/proposal';
 import { pendingProps } from '../../../types/proposal';
 import { approvedProps } from '../../../types/proposal';
+import { getDraftBusinessProposals } from './actions';
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const data = await getDraftBusinessProposals();
+
+  console.log('data', data);
+
   return (
     <div>
       <HeaderMain />
