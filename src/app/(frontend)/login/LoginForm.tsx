@@ -38,7 +38,7 @@ export const LoginForm = () => {
           type="password"
           className="flex h-9 w-full min-w-0 rounded-md px-3 py-1 text-base outline-none bg-[#F3F3F5] focus:border-4 focus:border-gray"
           required
-          defaultValue="admin"
+          defaultValue="1234"
           id="password"
           name="password"
         />

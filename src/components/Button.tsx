@@ -1,13 +1,17 @@
+'use client';
+
 import React, { ReactElement, type ReactNode } from 'react';
 import { type IconType } from 'react-icons/lib';
+import { type Link } from '@payloadcms/ui';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'wide' | 'outline' | 'secondary' | 'ghost' | 'link';
   size?: 'default' | 'sm' | 'lg' | 'icon';
   disabled?: boolean;
   label?: string;
-  startIcon?: IconType;
-  endIcon?: IconType;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  link?: string;
 }
 
 const Button = ({
@@ -18,6 +22,7 @@ const Button = ({
   className = '',
   startIcon: StartIcon,
   endIcon: EndIcon,
+  link = '/',
   onClick,
   ...props
 }: ButtonProps) => {
@@ -52,12 +57,12 @@ const Button = ({
     <button
       className={buttonClasses}
       disabled={disabled}
-      onClick={onClick}
+      onClick={() => (window.location.href = link)}
       {...props}
     >
-      {StartIcon && <StartIcon className="mr-2" />}
+      {StartIcon && <span className="mr-2">{StartIcon}</span>}
       {label}
-      {EndIcon && <EndIcon className="ml-2" />}
+      {EndIcon && <span className="ml-2">{EndIcon}</span>}
     </button>
   );
 };

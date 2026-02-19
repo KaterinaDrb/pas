@@ -24,11 +24,15 @@ const HeaderMain = () => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Button label="Аналитика" startIcon={FaRegChartBar} variant="ghost" />
+          <Button
+            label="Аналитика"
+            startIcon={<FaRegChartBar />}
+            variant="ghost"
+          />
           <Button
             label="Выйти"
-            startIcon={FaRegUser}
-            endIcon={LuLogOut}
+            startIcon={<FaRegUser />}
+            endIcon={<LuLogOut />}
             variant="ghost"
           />
         </div>

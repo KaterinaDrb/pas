@@ -1,3 +1,4 @@
+import { MdNavigateNext } from 'react-icons/md';
 interface StepIndicatorProps {
   currentStep: number;
 }
@@ -10,26 +11,21 @@ export default function StepIndicator({ currentStep }: StepIndicatorProps) {
     { id: 4, title: 'Смета и итоги' },
   ];
   return (
-    <div>
+    <div className="flex items-center justify-center space-x-4 px-4 py-3">
       {steps.map((step) => (
-        <div key={step.id}>
+        <div key={step.id} className="flex justify-center items-center">
           <div
-            className={`
-					${step.id < currentStep ? 'bg-green' : step.id === currentStep ? 'bg-blue-600' : 'bg-gray-200'}`}
+            className={` flex w-8 h-8 rounded-full items-center justify-center text-gray-400
+					${step.id < currentStep ? 'bg-green-500 text-white' : step.id === currentStep ? 'bg-primary text-white' : 'bg-gray-200'}`}
           >
-            {step.id < currentStep ? 'ok' : step.id}
+            {step.id}
           </div>
           <span
-            className={`${step.id <= currentStep ? 'text-gray-800' : 'text-gray-400'} `}
+            className={`ml-2 ${step.id < currentStep ? 'text-gray-800' : step.id === currentStep ? 'text-primary' : 'text-gray-400'} `}
           >
             {step.title}
           </span>
-
-          {step.id < steps.length && (
-            <div
-              className={`${step.id < currentStep ? 'bg-green-500' : 'bg-gray-200'}`}
-            ></div>
-          )}
+          <MdNavigateNext className="mx-4" />
         </div>
       ))}
     </div>
