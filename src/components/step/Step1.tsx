@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { type ProposalForm } from '../../types/ProposalForm';
 import { type Customer } from '../../payload-types';
 import Button from '../Button';
+import { getClients } from '@/app/(frontend)/create/actions';
 
 interface Step1Props {
   data: Pick<
@@ -19,17 +20,9 @@ export default function Step1({ data, updateData }: Step1Props) {
   const [selectedCustomerName, setSelectedCustomerName] = useState('');
 
   useEffect(() => {
-    fetch('/api/customers')
-      .then((res) => res.json())
+    getClients()
       .then((data) => {
-        if (Array.isArray(data)) {
-          setCustomer(data);
-        } else if (data && Array.isArray(data.data)) {
-          setCustomer(data.data);
-        } else {
-          console.error('Unexpected customers API response', data);
-          setCustomer([]);
-        }
+        setCustomer(data);
       })
       .catch((err) => console.error('Failed to load customers', err));
   }, []);

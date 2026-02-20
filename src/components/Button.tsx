@@ -57,7 +57,7 @@ const Button = ({
     <button
       className={buttonClasses}
       disabled={disabled}
-      onClick={() => (window.location.href = link)}
+      onClick={onClick || (() => (window.location.href = link))}
       {...props}
     >
       {StartIcon && <span className="mr-2">{StartIcon}</span>}
