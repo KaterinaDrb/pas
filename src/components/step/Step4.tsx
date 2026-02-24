@@ -1,9 +1,25 @@
 'use client';
+import Button from '../Button';
+interface Step4Props {
+  totalPrice: number;
+  totalMonths: number;
+  totalDays: number;
+  onSubmit: (status: 'DRAFT' | 'READY') => void;
+  isSubmitting: boolean;
+}
+
 import React from 'react';
-const Step4 = () => {
+export default function Step4({
+  totalPrice,
+  totalMonths,
+  totalDays,
+  onSubmit,
+  isSubmitting,
+}: Step4Props) {
   return (
     <div>
-      <h2 className="text-2xl font-bold">ШАГ 4: СМЕТА И ИТОГИ</h2>
+      <h2 className="text-2xl font-bold mb-6">ШАГ 4: СМЕТА И ИТОГИ</h2>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div>
           <h3 className="text-lg font-semibold mb-4">
@@ -21,33 +37,42 @@ const Step4 = () => {
             <div className="space-y-2">
               <div className="flex justify-between">
                 <span>Итоговая стоимость:</span>
-                <span className="font-semibold text-lg">0 ₽</span>
+                <span className="font-semibold text-lg">{totalPrice} ₽</span>
               </div>
               <div className="flex justify-between">
                 <span>Итоговый срок:</span>
-                <span className="font-semibold">0 месяца</span>
+                <span className="font-semibold">{totalMonths} месяца</span>
               </div>
               <div className="flex justify-between">
                 <span>Трудозатраты:</span>
-                <span>0 чел./дн.</span>
+                <span>{totalDays} чел./дн.</span>
               </div>
             </div>
           </div>
           <div className="space-y-3">
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none border h-9 px-4 py-2 w-full">
-              Отправить на согласование
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none border h-9 px-4 py-2 w-full">
-              Экспорт в PDF
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none border h-9 px-4 py-2 w-full">
-              Сохранить черновик
-            </button>
+            <Button
+              onClick={() => onSubmit('READY')}
+              disabled={isSubmitting}
+              label="Отправить на согласование"
+              variant="wide"
+            />
+            <Button
+              onClick={() => onSubmit('READY')}
+              disabled={isSubmitting}
+              label="Экспорт в PDF"
+              variant="outline"
+              className="w-full"
+            />
+            <Button
+              onClick={() => onSubmit('DRAFT')}
+              disabled={isSubmitting}
+              label="Сохранить черновик"
+              variant="outline"
+              className="w-full"
+            />
           </div>
         </div>
       </div>
     </div>
   );
-};
-
-export default Step4;
+}

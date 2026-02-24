@@ -13,6 +13,8 @@
   --color-gray: #aaa9a9;
   --color-secondary: #f2f2f2;
   --color-secondary-1: #f0f1f2;
+  --color-accent: #e9ebef;
+  --color-muted: #717182;
   --color-approved: oklch(0.982 0.018 155.826);
   --color-approved-1: oklch(0.925 0.084 155.995);
   --color-pending: oklch(0.987 0.026 102.212);

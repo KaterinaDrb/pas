@@ -1,6 +1,5 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 import { FaRegChartBar, FaRegUser, FaSearch } from 'react-icons/fa';
 import { LuLogOut } from 'react-icons/lu';
@@ -8,7 +7,7 @@ import Button from './Button';
 
 const HeaderMain = () => {
   return (
-    <header className="bg-white border-b border-gray p-4">
+    <header className="bg-white border-b border-secondary-1 p-4">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">

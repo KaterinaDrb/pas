@@ -1,20 +1,17 @@
 import React from 'react';
 import ModuleCard from './ModuleCard';
-import { type ModuleProps } from './ModuleCard';
-import { type ModuleGroup } from '../payload-types';
 import { type Module } from '../payload-types';
 
 interface SubgroupProps {
   title: string;
   modules: (number | Module)[];
+  onAddModule?: (module: Module) => void;
 }
 
-const Subgroup = ({ title, modules }: SubgroupProps) => {
+const Subgroup = ({ title, modules, onAddModule }: SubgroupProps) => {
   return (
     <div>
-      <h5 className="text-xs font-medium text-muted-foreground mb-2">
-        {title}
-      </h5>
+      <h5 className="text-xs font-medium text-muted mb-2">{title}</h5>
       {module ? (
         <div>
           {modules.map((mod) => {
@@ -22,7 +19,7 @@ const Subgroup = ({ title, modules }: SubgroupProps) => {
               return <div key={mod}>Модуль #{mod} (не загружен) </div>;
             }
             return (
-              <ModuleCard key={mod.id} title={mod.name} duration={mod.amount} />
+              <ModuleCard key={mod.id} module={mod} onClick={onAddModule} />
             );
           })}
         </div>

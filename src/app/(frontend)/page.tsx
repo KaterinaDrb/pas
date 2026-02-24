@@ -1,5 +1,6 @@
 import React from 'react';
-
+import api from '../../api';
+import { redirect } from 'next/navigation';
 export default async function HomePage() {
   return (
     <div>

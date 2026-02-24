@@ -3,13 +3,12 @@ import Button from '../../../components/Button';
 import { FaPlus } from 'react-icons/fa';
 import HeaderMain from '../../../components/HeaderMain';
 import Footer from '../../../components/Footer';
-import { draftProps } from '../../../types/proposal';
 import { pendingProps } from '../../../types/proposal';
 import { approvedProps } from '../../../types/proposal';
 import { getDraftBusinessProposals } from './actions';
+import { getReadyBusinessProposals } from './actions';
 import { cookies } from 'next/headers';
 import { type BusinessProposal } from '../../../payload-types';
-import { title } from 'process';
 import { type ProposalStatus } from '../../../types/proposal';
 
 const mapToBlockProposal = (bp: BusinessProposal) => ({
@@ -24,10 +23,12 @@ export default async function Dashboard() {
   const cookie = await cookies();
   console.log(cookie);
   const data = await getDraftBusinessProposals();
-  //const draftProposals = data?.docs ?? [];
   const draftProposals = (data?.docs ?? []).map(mapToBlockProposal);
 
-  console.log('data', data);
+  const data_ready = await getReadyBusinessProposals();
+  const readyProposals = (data_ready?.docs ?? []).map(mapToBlockProposal);
+
+  console.log('data_ready', data);
 
   return (
     <div>
@@ -44,7 +45,7 @@ export default async function Dashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <Block status="DRAFT" proposals={draftProposals} />
-          <Block status="READY" proposals={pendingProps} />
+          <Block status="READY" proposals={readyProposals} />
           <Block status="APPROVED" proposals={approvedProps} />
         </div>
       </main>

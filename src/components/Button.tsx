@@ -1,8 +1,6 @@
 'use client';
 
 import React, { ReactElement, type ReactNode } from 'react';
-import { type IconType } from 'react-icons/lib';
-import { type Link } from '@payloadcms/ui';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'default' | 'wide' | 'outline' | 'secondary' | 'ghost' | 'link';
@@ -29,7 +27,7 @@ const Button = ({
   const variantStyles = {
     default: 'bg-primary text-white hover:bg-primary/90 text-base',
     wide: 'bg-primary text-white hover:bg-primary/90 text-sm w-full',
-    outline: 'border hover:bg-accent',
+    outline: 'border hover:bg-accent border-gray',
     secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
     ghost: 'hover:bg-secondary ',
     link: 'text-primary underline-offset-4 hover:underline',
@@ -37,7 +35,7 @@ const Button = ({
 
   const sizeStyles = {
     default: 'h-9 px-4 py-2',
-    sm: 'h-8 rounded-md gap-1.5 px-3',
+    sm: 'h-8 rounded-md gap-1.5 px-1',
     lg: 'h-10 rounded-md px-6',
     icon: 'size-9 rounded-md',
   };

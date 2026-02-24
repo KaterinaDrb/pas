@@ -23,7 +23,7 @@ export const BusinessProposals: CollectionConfig = {
   },
   access: {
     read: authenticated,
-    create: isRoles(['PROJECT_MANAGER']),
+    create: isRoles(['PROJECT_MANAGER', 'ADMIN']),
     update: async ({ req, id }) => {
       if (id) {
         const doc = await req.payload.findByID({
