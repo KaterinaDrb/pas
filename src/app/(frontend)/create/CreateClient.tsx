@@ -12,6 +12,7 @@ import { useAuth } from '@payloadcms/ui';
 import { type ProposalForm } from '../../../types/ProposalForm';
 import { type Module, ModuleStandard } from '../../../payload-types';
 import { createProposal } from './actions';
+import { approveProposal } from './actions';
 import { MdNavigateNext } from 'react-icons/md';
 import { type Customer } from '../../../payload-types';
 
@@ -99,7 +100,7 @@ export default function CreateProposal({
   const handleSubmit = async (status: 'DRAFT' | 'READY') => {
     console.log('handleSubmit called with status:', status);
     setIsSubmitting(true);
-    const result = await createProposal(formData, status);
+    const result = await createProposal(formData);
     if (result.success) {
       alert(`КП создано!`);
       // router.push(`/proposals/${result.id}`);
@@ -107,6 +108,17 @@ export default function CreateProposal({
       alert(result.error);
     }
     setIsSubmitting(false);
+
+    if (status === 'READY') {
+      const send = await approveProposal(result.id, '');
+      if (send.success) {
+        alert(`КП sent!`);
+        // router.push(`/proposals/${result.id}`);
+      } else {
+        alert(send.error);
+      }
+      setIsSubmitting(false);
+    }
   };
 
   return (

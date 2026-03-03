@@ -13,7 +13,7 @@ export const Customers: CollectionConfig = {
   },
   access: {
     admin: isRoles(['ADMIN']),
-    create: isRoles(['ADMIN']),
+    create: isRoles(['ADMIN', 'PROJECT_MANAGER']),
     delete: isRoles(['ADMIN']),
     read: authenticated,
     update: isRoles(['ADMIN']),

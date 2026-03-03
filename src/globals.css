@@ -19,6 +19,8 @@
   --color-approved-1: oklch(0.925 0.084 155.995);
   --color-pending: oklch(0.987 0.026 102.212);
   --color-pending-1: oklch(0.945 0.129 101.54);
+  --color-tech: #eeffd4;
+  --color-tech-1: #defcae;
 }
 
 body {

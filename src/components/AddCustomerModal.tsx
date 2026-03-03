@@ -22,8 +22,9 @@ export default function AddCustomerModal({
     const result = await createCustomer(formData);
     setIsSubmitting(false);
     if (result.success && result.customer) {
-      onCustomerAdded(result.customer);
+      onCustomerAdded(result.customer.doc);
       onClose();
+      alert('Клиент ' + result.customer.doc.name + ' успешно создан');
     } else {
       alert('Ошибка: ' + result.error);
     }

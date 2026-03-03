@@ -4,6 +4,8 @@ import { FaRegFileAlt, FaRegClock, FaRegCheckCircle } from 'react-icons/fa';
 import { type ProposalStatus } from '../types/proposal';
 import { type comProposal } from '../types/proposal';
 import { type JSX } from 'react';
+import { ImCross } from 'react-icons/im';
+import { RiComputerLine } from 'react-icons/ri';
 
 interface ProposalSectionProps {
   status: ProposalStatus;
@@ -20,7 +22,11 @@ const Block = ({ status, proposals }: ProposalSectionProps) => {
       icon: <FaRegFileAlt />,
       style: 'text-black',
     },
-    READY: { title: 'Готовы', icon: <FaRegClock />, style: 'text-yellow-600' },
+    READY: {
+      title: 'Ждут согласования',
+      icon: <FaRegClock />,
+      style: 'text-yellow-600',
+    },
     APPROVED: {
       title: 'Утверждены',
       icon: <FaRegCheckCircle />,
@@ -28,13 +34,13 @@ const Block = ({ status, proposals }: ProposalSectionProps) => {
     },
     TECH_APPROVED: {
       title: 'Технически согласованы',
-      icon: <FaRegCheckCircle />,
-      style: 'text-green-600',
+      icon: <RiComputerLine />,
+      style: 'text-[#6AA110]',
     },
     DECLINED: {
       title: 'Отклонены',
-      icon: <FaRegClock />,
-      style: 'text-green-600',
+      icon: <ImCross />,
+      style: 'text-red-600',
     },
   };
 

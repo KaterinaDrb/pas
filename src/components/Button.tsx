@@ -28,7 +28,8 @@ const Button = ({
     default: 'bg-primary text-white hover:bg-primary/90 text-base',
     wide: 'bg-primary text-white hover:bg-primary/90 text-sm w-full',
     outline: 'border hover:bg-accent border-gray',
-    secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+    secondary:
+      'bg-secondary text-secondary-foreground hover:bg-secondary/80 border border-accent',
     ghost: 'hover:bg-secondary ',
     link: 'text-primary underline-offset-4 hover:underline',
   };

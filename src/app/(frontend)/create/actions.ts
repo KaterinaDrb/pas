@@ -27,10 +27,7 @@ export async function getClients() {
   }
 }
 
-export async function createProposal(
-  formData: ProposalForm,
-  status: 'DRAFT' | 'READY'
-) {
+export async function createProposal(formData: ProposalForm) {
   try {
     const totalDays = formData.selectedModules.reduce(
       (sum, m) => sum + (m.amount || 0),
@@ -58,14 +55,15 @@ export async function createProposal(
         },
       }),
       customer: formData.customerId,
-      status,
+      status: 'DRAFT',
       price: Math.round(totalPrice),
       modules: formData.selectedModules.map((m) => m.id),
     };
 
     const { data } = await api.post('/business-proposals', payload);
-    console.log('createProposal called with status:', status);
-    return { success: true, id: data.id };
+    console.log('createProposal called with status:');
+    console.log('data in created prop', data);
+    return { success: true, id: data.doc.id };
   } catch (error: any) {
     console.error(
       'Error creating proposal:',
@@ -74,6 +72,21 @@ export async function createProposal(
     return {
       success: false,
       error: error.response?.data?.message || 'Ошибка создания',
+    };
+  }
+}
+
+export async function approveProposal(id: number, comment: string) {
+  try {
+    const { data } = await api.patch(`/business-proposals/${id}/approve`, {
+      comment: comment,
+    });
+    return { success: true, data };
+  } catch (error: any) {
+    console.error('Error approving proposal:', error);
+    return {
+      success: false,
+      error: error.response?.data?.message || 'Ошибка при утверждении КП',
     };
   }
 }
@@ -90,6 +103,7 @@ export async function createCustomer(formData: FormData) {
     };
 
     const { data } = await api.post('/customers', payload);
+    console.log('createCustomer response data:', data);
     return { success: true, customer: data };
   } catch (error: any) {
     console.error('Error creating customer:', error);

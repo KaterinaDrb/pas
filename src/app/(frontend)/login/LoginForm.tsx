@@ -43,7 +43,14 @@ export const LoginForm = () => {
           name="password"
         />
       </div>
-      <Button label="Войти" variant="wide" type="submit" disabled={pending} />
+
+      <button
+        type="submit"
+        disabled={pending}
+        className="items-center justify-center font-normal px-3 py-2 rounded-lg transition-colors bg-primary text-white hover:bg-primary/90 text-sm w-full"
+      >
+        Войти
+      </button>
       {JSON.stringify(state?.errors)}
     </form>
   );
