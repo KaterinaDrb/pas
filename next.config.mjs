@@ -13,6 +13,7 @@ const nextConfig = {
     return webpackConfig;
   },
   output: 'standalone',
+  serverExternalPackages: ['pdfkit'],
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });

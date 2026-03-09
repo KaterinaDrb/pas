@@ -75,11 +75,14 @@ const Header = ({
           </div>
         </div>
         {buttonNeeded && (
-          <Button
-            label="Скачать PDF"
-            variant="secondary"
-            startIcon={<FiDownload />}
-          />
+          <a href={`/api/business-proposals/${proposalId}/export`} download>
+            <Button
+              label="Скачать PDF"
+              variant="secondary"
+              startIcon={<FiDownload />}
+              onClick={() => {}}
+            />
+          </a>
         )}{' '}
       </div>
     </header>
