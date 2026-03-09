@@ -7,6 +7,7 @@ import { authenticated } from '@/access/authenticated';
 import { approveHandler } from './handlers/approveHandler';
 import { declineHandler } from './handlers/declineHandler';
 import { deleteHistory } from './hooks/deleteHistory';
+import { draftHandler } from './handlers/draftHandler';
 
 export const BusinessProposals: CollectionConfig = {
   slug: 'business-proposals',
@@ -101,6 +102,11 @@ export const BusinessProposals: CollectionConfig = {
       path: '/:id/decline',
       method: 'patch',
       handler: declineHandler,
+    },
+    {
+      path: '/:id/draft',
+      method: 'patch',
+      handler: draftHandler,
     },
   ],
 };
